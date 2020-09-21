@@ -1,6 +1,7 @@
-from __future__ import print_function, absolute_import, division
+
 
 import numpy as np
+from functools import reduce
 try:
     from numba import jit
 except ImportError:
@@ -40,8 +41,8 @@ def get_expansion_map(n, m):
     zeroStateIdx = len(inputBasis)-1
 
     expansionMap = np.zeros((len(inputBasis),), dtype=int)
-    for i in xrange(len(inputBasis)):
-        for j in xrange(pairLookupTable.shape[0]):
+    for i in range(len(inputBasis)):
+        for j in range(pairLookupTable.shape[0]):
             if pairLookupTable[j, 0] == i:
                 if pairLookupTable[j, 1] == zeroStateIdx:
                     expansionMap[i] = j
@@ -117,13 +118,13 @@ def get_trace_table(n, m):
 
     klPairs = []
     aPairs = []
-    for k in xrange(N):
-        for l in xrange(N):
+    for k in range(N):
+        for l in range(N):
             if B[k] == B[l]:
                 klPairs.append((k, l))
                 aPairs.append((A[k], A[l]))
     traceTable = np.zeros((len(klPairs), 4), dtype=int)
-    for i in xrange(len(klPairs)):
+    for i in range(len(klPairs)):
         traceTable[i, :2] = klPairs[i]
         traceTable[i, 2:] = aPairs[i]
     return traceTable
@@ -141,7 +142,7 @@ def apply_density_loss(rho, n, m, eta):
     sigma = apply_loss(rho, eta, n, m)
     rhoOut = np.zeros(rho.shape, dtype=complex)
     traceTable = get_trace_table(n, m)
-    for i in xrange(traceTable.shape[0]):
+    for i in range(traceTable.shape[0]):
         k, l, ak, al = traceTable[i, :]
         rhoOut[ak, al] += sigma[k, l]
     return rhoOut
@@ -151,7 +152,7 @@ def apply_density_loss(rho, n, m, eta):
 def get_qd_mode_pairs(n, m):
     basis = lossy_basis(n, 2*m)
     pairs = np.zeros((m, 2), dtype=int)
-    for i in xrange(m):
+    for i in range(m):
         for j, state in enumerate(basis):
             if state[i] == 2 and state[i+m] == 0:
                 pairs[i, 0] = j
@@ -174,7 +175,7 @@ def get_qd_loss_unitary(n, m, etas):
     pairs = get_qd_mode_pairs(n, m)
     N = len(lossy_basis(n, 2*m))
     U = np.eye(N, dtype=complex)
-    for i in xrange(m):
+    for i in range(m):
         eta = etas[i]
         j, k = pairs[i, :]
         U[j, j] = 1 - 2*eta
@@ -190,7 +191,7 @@ def apply_qd(rho, n, m, etas):
     sigma = U.dot(sigma).dot(np.conj(U.T))
     rhoOut = np.zeros(rho.shape, dtype=complex)
     traceTable = get_trace_table(n, m)
-    for i in xrange(traceTable.shape[0]):
+    for i in range(traceTable.shape[0]):
         k, l, ak, al = traceTable[i, :]
         rhoOut[ak, al] += sigma[k, l]
     return rhoOut

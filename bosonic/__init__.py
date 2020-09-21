@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 from .aa_phi import aa_phi, aa_phi_lossy, aa_phi_restricted, fock_to_idx
 from .aa_phi import permanent, permanent_vjp, aa_phi_vjp
 from .fock import binom
@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 __title__ = "bosonic"
-__version__ = "0.2"
+__version__ = "0.3.0"
 __description__ = "Library for fast indistinguishable boson computations"
 __url__ = "https://github.com/steinbrecher/bosonic"
 

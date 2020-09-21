@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 import autograd.numpy as np
 from autograd.extend import primitive, defvjp
 from ..clements import build_bs_layer
@@ -9,6 +9,7 @@ from ..nonlinear import build_fock_nonlinear_layer as fast_nonlin
 from .. import fock_to_idx
 from .. import aa_phi, aa_phi_lossy
 from ..util import memoize
+from functools import reduce
 
 
 @memoize
@@ -172,7 +173,7 @@ def build_nonlin_products(numPhotons, numModes):
 
         # Set all modes with zero or one photons equal to zero
         phase = 0
-        for j in xrange(numModes):
+        for j in range(numModes):
             if s[j] > 1:
                 phase += s[j] * (s[j]-1) / 2
         D[i] = phase

@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 
 import numpy as np
 from .fock import basis as fock_basis
@@ -61,7 +61,7 @@ def build_fock_nonlinear_layer_variable(numPhotons, numModes, theta,
     for i, state in enumerate(basis):
         # Calculate phase of the nonlinearity
         phase = 0
-        for j in xrange(numModes):
+        for j in range(numModes):
             if state[j] > 1:
                 phase += state[j] * (state[j]-1) * theta[j] / 2
 
@@ -85,7 +85,7 @@ def build_fock_nonlinear_layer_constant(numPhotons, numModes, theta,
     for i, state in enumerate(basis):
         # Set all modes with zero or one photons equal to zero
         phase = 0
-        for j in xrange(numModes):
+        for j in range(numModes):
             if state[j] > 1:
                 phase += state[j] * (state[j]-1) * theta / 2
 

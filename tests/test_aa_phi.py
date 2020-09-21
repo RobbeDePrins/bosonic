@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 import unittest
 
 import bosonic as b
@@ -8,7 +8,7 @@ from scipy.special import factorial
 
 
 def permanent_slow(a):
-    """Reference permanent calculation implementation
+    r"""Reference permanent calculation implementation
     No effort has been made to optimize this, deliberately.
     The permanent is defined as:
     perm(A) = \sum_{\sigma \in S_n} \prod_{i=0}^{n-1} a_{i, \sigma(i)}
@@ -16,7 +16,7 @@ def permanent_slow(a):
     """
     a = np.array(a)
     N = a.shape[0]
-    Sn = it.permutations(range(N))
+    Sn = it.permutations(list(range(N)))
     out = 0
     for sigma in Sn:
         out += np.prod([a[i, si] for i, si in enumerate(sigma)])
@@ -116,8 +116,8 @@ class TestReferenceImplementations(unittest.TestCase):
 class TestAAPhi(unittest.TestCase):
     def test_aa_phi(self):
         """Test b.aa_phi against reference implementation for random inputs"""
-        ms = range(1, 5)
-        ns = range(1, 5)
+        ms = list(range(1, 5))
+        ns = list(range(1, 5))
         for m in ms:
             U = b.util.haar_rand(m)
             for n in ns:

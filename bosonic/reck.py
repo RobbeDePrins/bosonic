@@ -1,6 +1,7 @@
-from __future__ import print_function, absolute_import, division
+
 import numpy as np
 from .util import memoize
+from functools import reduce
 
 
 def phase_two(theta1, theta2=0):
