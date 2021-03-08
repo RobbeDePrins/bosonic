@@ -105,6 +105,7 @@ def basis_size(int n, int m):
     cdef int top = n + m - 1
     cdef int numer = 1
     cdef int denom = 1
+    cdef int i
     for i in range(1, n+1):
         numer = numer * (top + 1 - i)
         denom = denom * i
