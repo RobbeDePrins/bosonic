@@ -103,7 +103,8 @@ def lossy_basis_lookup(n, m):
 
 @memoize
 def basis_size(int n, int m):
-    return scipy.special.binom(n+m-1,n)
+    cdef int res = scipy.special.binom(n+m-1,n)
+    return res
 #     cdef int top = n + m - 1
 # #     cdef int numer = 1
 # #     cdef int denom = 1
