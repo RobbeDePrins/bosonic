@@ -3,6 +3,7 @@ from __future__ import print_function, absolute_import, division
 import numpy as np
 import itertools as it
 from .util import memoize
+import scipy.special
 
 cimport numpy as np
 
@@ -102,16 +103,17 @@ def lossy_basis_lookup(n, m):
 
 @memoize
 def basis_size(int n, int m):
-    cdef int top = n + m - 1
-#     cdef int numer = 1
-#     cdef int denom = 1
-    cdef int res = 1
-    for i in range(1, n+1):
-#         numer = numer * (top + 1 - i)
-#         denom = denom * i
-        res = res * (top + 1 - i) / i
-#     return numer // denom
-    return res
+    return scipy.special.binom(n+m-1,n)
+#     cdef int top = n + m - 1
+# #     cdef int numer = 1
+# #     cdef int denom = 1
+#     cdef int res = 1
+#     for i in range(1, n+1):
+# #         numer = numer * (top + 1 - i)
+# #         denom = denom * i
+#         res = res * (top + 1 - i) / i
+# #     return numer // denom
+#     return res
 
 
 @memoize
